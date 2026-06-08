@@ -4,10 +4,10 @@ export class InventoryPage {
   constructor(private readonly page: Page) {}
 
     async addItem(itemName: string): Promise<void> {
-        await this.page.getByTestId(`add-to-cart-${itemName}`).click();
+        await this.page.getByTestId(itemName).click();
     }
 
     async removeItem(itemName: string): Promise<void> {
-        await this.page.getByTestId(`remove-${itemName}`).click();
+        await this.page.getByTestId(itemName).click();
     }
 }

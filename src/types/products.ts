@@ -1,4 +1,5 @@
 export type sauceDemoProducts = {
-  productButtonLabel: string;
-  productButtonTestId: string;
+  productProductPageLink: string;
+  addToCartTestId: string;
+  removeFromCartTestId: string;
 };

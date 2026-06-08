@@ -1,8 +1,8 @@
 import { test, Page } from '@playwright/test';
-import { sauceDemoUsers } from '../../src/data/sauceDemoUsers';
-import { LoginPage } from '../../src/pages/LoginPage';
+import { SauceDemoUsers } from '../../src/data/sauceDemoUsers';
+import { LoginPage } from '../../src/pages/loginPage';
 import { InventoryPage } from '../../src/pages/inventoryPage';
-import { sauceDemoProductInfo } from '../../src/data/sauceDemoProducts';
+import { SauceDemoProductInfo } from '../../src/data/sauceDemoProducts';
 
 interface TestPages {
   loginPage: LoginPage;
@@ -21,12 +21,12 @@ test.describe("Full checkout flow from logged out state", () => {
 
   test('Complete checkout with two products and validates the final price', async ({page}) => {
     await test.step('Log in as a standard user', async () => {
-        await loginPage.login(sauceDemoUsers.standard);
+        await loginPage.login(SauceDemoUsers.standard);
     });
 
     await test.step('Add two products to the basket', async () => {
-        await inventoryPage.addItem(sauceDemoProductInfo.backpack.productButtonLabel);
-        await inventoryPage.addItem(sauceDemoProductInfo.bikeLight.productButtonLabel);
+        await inventoryPage.addItem(SauceDemoProductInfo.backpack.addToCartTestId);
+        await inventoryPage.addItem(SauceDemoProductInfo.bikeLight.addToCartTestId);
     });
 
     await test.step('Validate basket contents', async () => {

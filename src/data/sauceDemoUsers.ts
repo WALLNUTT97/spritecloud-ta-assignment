@@ -1,6 +1,6 @@
 import { sauceDemoCredentials } from '../types/UserCredentials';
 
-export const sauceDemoUsers = {
+export const SauceDemoUsers = {
   standard: {
     username: 'standard_user',
     password: 'secret_sauce',

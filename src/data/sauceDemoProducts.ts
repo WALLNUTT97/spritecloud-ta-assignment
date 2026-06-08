@@ -1,28 +1,34 @@
 import { sauceDemoProducts } from '../types/products';
 
-export const sauceDemoProductInfo = {
+export const SauceDemoProductInfo = {
   backpack: {
-    productButtonTestId: 'item-4-title-link',
-    productButtonLabel: 'sauce-labs-backpack',
+    productProductPageLink: 'item-4-title-link',
+    addToCartTestId: 'add-to-cart-sauce-labs-backpack',
+    removeFromCartTestId: 'remove-sauce-labs-backpack',
   },
   bikeLight: {
-    productButtonTestId: 'item-0-title-link',
-    productButtonLabel: 'sauce-labs-bike-light',
+    productProductPageLink: 'item-0-title-link',
+    addToCartTestId: 'add-to-cart-sauce-labs-bike-light',
+    removeFromCartTestId: 'remove-sauce-labs-bike-light',
   },
   boltTShirt: {
-    productButtonTestId: 'item-1-title-link',
-    productButtonLabel: 'sauce-labs-bolt-t-shirt',
+    productProductPageLink: 'item-1-title-link',
+    addToCartTestId: 'add-to-cart-sauce-labs-bolt-t-shirt',
+    removeFromCartTestId: 'remove-sauce-labs-bolt-t-shirt',
   },
   FleeceJacket: {
-    productButtonTestId: 'item-5-title-link',
-    productButtonLabel: 'sauce-labs-fleece-jacket',
+    productProductPageLink: 'item-5-title-link',
+    addToCartTestId: 'add-to-cart-sauce-labs-fleece-jacket',
+    removeFromCartTestId: 'remove-sauce-labs-fleece-jacket',
   },
   Onesie: {
-    productButtonTestId: 'item-2-title-link',
-    productButtonLabel: 'sauce-labs-onesie',
+    productProductPageLink: 'item-2-title-link',
+    addToCartTestId: 'add-to-cart-sauce-labs-onesie',
+    removeFromCartTestId: 'remove-sauce-labs-onesie',
   },
   tShirtRed: {
-    productButtonTestId: 'item-3-title-link',
-    productButtonLabel: 'test.allthethings()-t-shirt-(red)',
+    productProductPageLink: 'item-3-title-link',
+    addToCartTestId: 'add-to-cart-test.allthethings()-t-shirt-(red)',
+    removeFromCartTestId: 'remove-test.allthethings()-t-shirt-(red)',
   },
 } satisfies Record<string, sauceDemoProducts>;
