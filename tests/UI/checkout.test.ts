@@ -1,21 +1,26 @@
-import { test, Page } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { SauceDemoUsers } from '../../src/data/sauceDemoUsers';
 import { LoginPage } from '../../src/pages/loginPage';
+import { CartPage } from '../../src/pages/cartPage';
+import { CheckoutPage } from '../../src/pages/checkoutPage';
 import { InventoryPage } from '../../src/pages/inventoryPage';
 import { SauceDemoProductInfo } from '../../src/data/sauceDemoProducts';
-
-interface TestPages {
-  loginPage: LoginPage;
-  inventoryPage: InventoryPage;
-}
+import { HeaderComponent } from '../../src/pages/components';
 
 let loginPage: LoginPage;
+let checkoutPage: CheckoutPage;
 let inventoryPage: InventoryPage;
+let headerComponent: HeaderComponent;
+let cartPage: CartPage;
+
 
 test.describe("Full checkout flow from logged out state", () => {
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
     inventoryPage = new InventoryPage(page);
+    headerComponent = new HeaderComponent(page);
+    cartPage = new CartPage(page);
+    checkoutPage = new CheckoutPage(page);
     await page.goto('/');
   });
 
@@ -25,24 +30,32 @@ test.describe("Full checkout flow from logged out state", () => {
     });
 
     await test.step('Add two products to the basket', async () => {
-        await inventoryPage.addItem(SauceDemoProductInfo.backpack.addToCartTestId);
-        await inventoryPage.addItem(SauceDemoProductInfo.bikeLight.addToCartTestId);
+        await inventoryPage.addItem(SauceDemoProductInfo.backpack);
+        await inventoryPage.addItem(SauceDemoProductInfo.bikeLight);
     });
 
     await test.step('Validate basket contents', async () => {
-        // assert products are present
+        await headerComponent.openCart();
+        await cartPage.validateCartContents([SauceDemoProductInfo.backpack, SauceDemoProductInfo.bikeLight]);
+        await cartPage.proceedToCheckout();
     });
 
     await test.step('Complete checkout information', async () => {
-        // enter customer details
+        await page.getByTestId('firstName').fill('Darragh');
+        await page.getByTestId('lastName').fill('Wallnutt');
+        await page.getByTestId('postalCode').fill('12345');
+        await page.getByTestId('continue').click();
     });
 
     await test.step('Validate checkout totals', async () => {
-        // validate item total, tax, final total
+        await checkoutPage.validatePriceTotal([SauceDemoProductInfo.backpack, SauceDemoProductInfo.bikeLight]);
     });
 
     await test.step('Place order and validate success', async () => {
-        // finish and assert success
+        await checkoutPage.finishOrder();
+        await checkoutPage.validateOrderComplete();
+        await headerComponent.openCart();
+        await cartPage.validateCartIsEmpty();
     });
   });
 });
