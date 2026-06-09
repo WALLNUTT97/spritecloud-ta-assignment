@@ -1,9 +1,9 @@
-QA Take-Home Assignment
+## QA Take-Home Assignment
 This project contains API tests written in TypeScript using Playwright, targeting:
     - Front end Flows (https://www.saucedemo.com)
     - API Flows (https://dummyjson.com)
 
-Objective
+## Objective
 The goal was to validate the following flow for the front end:
 
 1. Write a full checkout that contains, at least, two items. Validate the final price.
