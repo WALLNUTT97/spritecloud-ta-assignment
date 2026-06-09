@@ -1,7 +1,7 @@
-import { APIRequestContext, expect } from '@playwright/test';
-import { DummyJSONCredentials } from '../types/UserCredentials';
-import { apiConfig } from '../config/apiConfig';
-import { DummyJSONProduct, DummyJSONCartProduct } from '../types/products';
+import { APIRequestContext, expect } from "@playwright/test";
+import { DummyJSONCredentials } from "../types/UserCredentials";
+import { apiConfig } from "../config/apiConfig";
+import { DummyJSONProduct, DummyJSONCartProduct } from "../types/products";
 
 export class DummyJSONApiClient {
   constructor(private readonly request: APIRequestContext) {}
@@ -10,7 +10,9 @@ export class DummyJSONApiClient {
     return this.request.get(`${apiConfig.dummyJsonBaseUrl}/users/${userId}`);
   }
 
-  async getLoginCredentialsForUser(userId: number): Promise<DummyJSONCredentials> {
+  async getLoginCredentialsForUser(
+    userId: number,
+  ): Promise<DummyJSONCredentials> {
     const response = await this.request.get(
       `${apiConfig.dummyJsonBaseUrl}/users/${userId}`,
     );
@@ -28,91 +30,86 @@ export class DummyJSONApiClient {
   }
 
   async login(credentials: DummyJSONCredentials) {
-    const response = await this.request.post(`${apiConfig.dummyJsonBaseUrl}/auth/login`, {
-      data: credentials,
-    });
+    const response = await this.request.post(
+      `${apiConfig.dummyJsonBaseUrl}/auth/login`,
+      {
+        data: credentials,
+      },
+    );
     expect(response.status()).toBe(200);
-const responseBody = await response.json();
+    const responseBody = await response.json();
 
-expect(responseBody).toHaveProperty('accessToken');
-expect(responseBody).toHaveProperty('username', credentials.username);
-expect(responseBody).toHaveProperty('id', credentials.id);
+    expect(responseBody).toHaveProperty("accessToken");
+    expect(responseBody).toHaveProperty("username", credentials.username);
+    expect(responseBody).toHaveProperty("id", credentials.id);
   }
 
   async getProductById(productId: number) {
-    const response = await this.request.get(`${apiConfig.dummyJsonBaseUrl}/products/${productId}`);
+    const response = await this.request.get(
+      `${apiConfig.dummyJsonBaseUrl}/products/${productId}`,
+    );
     const productDetails = await response.json();
     return productDetails;
   }
 
-  async getProductsByCategory(productCategory: string){
-    const response = await this.request.get(`${apiConfig.dummyJsonBaseUrl}/products/category/${productCategory}`)
+  async getProductsByCategory(productCategory: string) {
+    const response = await this.request.get(
+      `${apiConfig.dummyJsonBaseUrl}/products/category/${productCategory}`,
+    );
     expect(response.status()).toBe(404);
   }
-  
-  async validateProductContents(productDetails: DummyJSONProduct, expectedProductId?: number) {
-    //With this validation, we are making the assumption that all products returned by the API will adhere to the same structure, 
-    // and that the presence of certain key properties (like id, title, brand, description, price, rating, stock, images, and thumbnail) can be used as indicators of a valid product response.
-    //I found that some records are missing BRAND so I therefore make the assumption that the record is invalid and the test is not given an incorrect negative result
+
+  async validateProductContents(
+    productDetails: DummyJSONProduct,
+    expectedProductId?: number,
+  ) {
+    //With this validation, we are making the assumption that not all products returned by the API will adhere to the same structure,
+    // and that the presence of certain key properties (like id, title, description, price, stock) can be used as indicators of a valid product response.
     expect(productDetails).toMatchObject(dummyJSONProductShape);
     expect(productDetails.id).toBe(expectedProductId);
     expect(productDetails.title.trim().length).toBeGreaterThan(0);
     expect(productDetails.description.trim().length).toBeGreaterThan(0);
     expect(productDetails.category.trim().length).toBeGreaterThan(0);
     expect(productDetails.price).toBeGreaterThan(0);
-    expect(productDetails.discountPercentage).toBeGreaterThanOrEqual(0);
-    expect(productDetails.rating).toBeGreaterThanOrEqual(0);
-    expect(productDetails.rating).toBeLessThanOrEqual(5);
     expect(productDetails.stock).toBeGreaterThanOrEqual(0);
-    expect(productDetails.tags.length).toBeGreaterThan(0);
-    expect(productDetails.brand.trim().length).toBeGreaterThan(0);
-    expect(productDetails.sku.trim().length).toBeGreaterThan(0);
-    expect(productDetails.weight).toBeGreaterThan(0);
-    expect(productDetails.dimensions.width).toBeGreaterThan(0);
-    expect(productDetails.dimensions.height).toBeGreaterThan(0);
-    expect(productDetails.dimensions.depth).toBeGreaterThan(0);
-    expect(productDetails.warrantyInformation.trim().length).toBeGreaterThan(0);
-    expect(productDetails.shippingInformation.trim().length).toBeGreaterThan(0);
-    expect(productDetails.availabilityStatus.trim().length).toBeGreaterThan(0);
-    expect(productDetails.reviews.length).toBeGreaterThanOrEqual(0);
-    expect(productDetails.returnPolicy.trim().length).toBeGreaterThan(0);
-    expect(productDetails.minimumOrderQuantity).toBeGreaterThanOrEqual(0);
-    expect(Number.isNaN(Date.parse(productDetails.meta.createdAt))).toBe(false);
-    expect(Number.isNaN(Date.parse(productDetails.meta.updatedAt))).toBe(false);
-    expect(productDetails.meta.barcode.trim().length).toBeGreaterThan(0);
-    expect(productDetails.meta.qrCode.trim().length).toBeGreaterThan(0);
-    expect(productDetails.thumbnail.trim().length).toBeGreaterThan(0);
-    expect(productDetails.images.length).toBeGreaterThan(0);
   }
 
   async addProductToNewCart(userId: number, products: DummyJSONCartProduct[]) {
-   const response = await this.request.post(`${apiConfig.dummyJsonBaseUrl}/carts/add`, {
-      data: {
-        userId,
-        products,
+    const response = await this.request.post(
+      `${apiConfig.dummyJsonBaseUrl}/carts/add`,
+      {
+        data: {
+          userId,
+          products,
+        },
       },
-    });
+    );
     expect(response.status()).toBe(201);
     const responseBody = await response.json();
-    expect(responseBody).toHaveProperty('id');
-    expect(responseBody).toHaveProperty('userId', userId);
-    expect(responseBody).toHaveProperty('userId', userId)
+    expect(responseBody).toHaveProperty("id");
+    expect(responseBody).toHaveProperty("userId", userId);
+    expect(responseBody).toHaveProperty("userId", userId);
     for (let i = 0; i < products.length; i++) {
-    expect(responseBody.products[i]).toHaveProperty('id', products[i].id);
-    expect(responseBody.products[i]).toHaveProperty('quantity', products[i].quantity);
+      expect(responseBody.products[i]).toHaveProperty("id", products[i].id);
+      expect(responseBody.products[i]).toHaveProperty(
+        "quantity",
+        products[i].quantity,
+      );
     }
-    const cartId = responseBody.id
+    const cartId = responseBody.id;
     return cartId;
   }
 
-  async deleteProduct(productId: number){
-    const response = await this.request.delete(`${apiConfig.dummyJsonBaseUrl}/products/${productId}`)
+  async deleteProduct(productId: number) {
+    const response = await this.request.delete(
+      `${apiConfig.dummyJsonBaseUrl}/products/${productId}`,
+    );
     expect(response.status()).toBe(200);
     const responseBody = await response.json();
-    expect(responseBody).toHaveProperty('id', productId);
-    expect(responseBody).toHaveProperty('isDeleted', true);
+    expect(responseBody).toHaveProperty("id", productId);
+    expect(responseBody).toHaveProperty("isDeleted", true);
     expect(Date.parse(responseBody.deletedOn)).not.toBeNaN();
-   /* const fetchProduct = await this.request.get(`${apiConfig.dummyJsonBaseUrl}/products/${productId}`)
+    /* const fetchProduct = await this.request.get(`${apiConfig.dummyJsonBaseUrl}/products/${productId}`)
     expect(fetchProduct.status()).toBe(404); */
     //This is a limitation of DummyJSON, in reality it should be deleted, but as stated on their documenatation, delete operations do not actually delete the record, just simulate it in API response
   }

@@ -1,24 +1,24 @@
-import { SauceDemoCredentials } from '../types/UserCredentials';
+import { SauceDemoCredentials } from "../types/UserCredentials";
 
 export const SauceDemoUsers = {
   standard: {
-    username: 'standard_user',
-    password: 'secret_sauce',
+    username: "standard_user",
+    password: "secret_sauce",
   },
   lockedOut: {
-    username: 'locked_out_user',
-    password: 'secret_sauce',
+    username: "locked_out_user",
+    password: "secret_sauce",
   },
   problem: {
-    username: 'problem_user',
-    password: 'secret_sauce',
+    username: "problem_user",
+    password: "secret_sauce",
   },
   performanceGlitch: {
-    username: 'performance_glitch_user',
-    password: 'secret_sauce',
+    username: "performance_glitch_user",
+    password: "secret_sauce",
   },
   invalid: {
-    username: 'invalid_user',
-    password: 'invalid_password',
+    username: "invalid_user",
+    password: "invalid_password",
   },
 } satisfies Record<string, SauceDemoCredentials>;

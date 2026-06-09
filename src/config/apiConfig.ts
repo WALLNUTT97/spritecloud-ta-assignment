@@ -1,3 +1,3 @@
 export const apiConfig = {
-  dummyJsonBaseUrl: 'https://dummyjson.com',
+  dummyJsonBaseUrl: "https://dummyjson.com",
 };
