@@ -6,10 +6,6 @@ import { DummyJSONProduct, DummyJSONCartProduct } from "../types/products";
 export class DummyJSONApiClient {
   constructor(private readonly request: APIRequestContext) {}
 
-  async getUserById(userId: number) {
-    return this.request.get(`${apiConfig.dummyJsonBaseUrl}/users/${userId}`);
-  }
-
   async getLoginCredentialsForUser(
     userId: number,
   ): Promise<DummyJSONCredentials> {
@@ -50,13 +46,6 @@ export class DummyJSONApiClient {
     );
     const productDetails = await response.json();
     return productDetails;
-  }
-
-  async getProductsByCategory(productCategory: string) {
-    const response = await this.request.get(
-      `${apiConfig.dummyJsonBaseUrl}/products/category/${productCategory}`,
-    );
-    expect(response.status()).toBe(404);
   }
 
   async validateProductContents(

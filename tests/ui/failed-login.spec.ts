@@ -4,7 +4,7 @@ import { SauceDemoUsers } from "../../src/data/sauceDemoUsers";
 
 let loginPage: LoginPage;
 
-test.describe("Full checkout flow from logged out state", () => {
+test.describe("SauceDemo login with locked out account", () => {
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
     await page.goto("/");

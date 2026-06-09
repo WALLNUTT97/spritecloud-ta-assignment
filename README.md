@@ -23,17 +23,17 @@ The goal was to validate the following flow for the API tests:
 
 ```text
 src/
-  components/
-    HeaderComponent.ts
+  config/
+    apiConfig.ts
 
   data/
     sauceDemoProducts.ts
     sauceDemoUsers.ts
-    apiConfig.ts
 
   pages/
     cartPage.ts
     checkoutPage.ts
+    components.ts
     inventoryPage.ts
     loginPage.ts
 
@@ -42,13 +42,13 @@ src/
     UserCredentials.ts
 
   utils/
-    contractValidators.ts
+    DummyJSONApiClient.ts
 
 tests/
   ui/
-    checkout.test.ts
-    failed-login.test.ts
-    sort.test.ts
+    checkout.spec.ts
+    failed-login.spec.ts
+    sort.spec.ts
 
   api/
     utilValidation.spec.ts
@@ -182,3 +182,7 @@ The GitHub Actions workflow also uploads the Playwright report as a pipeline art
 - DummyJSON simulates some write operations. Created carts and deleted resources are returned in the response but may not be persisted server-side.
 - Tests use deterministic data rather than random product/user selection to keep results repeatable and CI-friendly.
 - The solution is intentionally lightweight while still separating UI interactions, API logic, test data, and validation concerns.
+
+## AI Usage
+
+AI assistance was used as a development support tool during this assignment. Full details are documented in [AIUSAGE.md](./AIUSAGE.md).

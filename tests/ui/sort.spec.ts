@@ -10,7 +10,7 @@ import {
 let loginPage: LoginPage;
 let inventoryPage: InventoryPage;
 
-test.describe("Full checkout flow from logged out state", () => {
+test.describe("SauceDemo product sorting", () => {
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
     inventoryPage = new InventoryPage(page);

@@ -6,8 +6,4 @@ export class HeaderComponent {
   async openCart(): Promise<void> {
     await this.page.getByTestId("shopping-cart-link").click();
   }
-
-  async burgerMenu(): Promise<void> {
-    await this.page.getByTestId("react-burger-menu-btn").click();
-  }
 }
