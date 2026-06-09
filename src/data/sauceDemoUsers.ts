@@ -1,4 +1,4 @@
-import { sauceDemoCredentials } from '../types/UserCredentials';
+import { SauceDemoCredentials } from '../types/UserCredentials';
 
 export const SauceDemoUsers = {
   standard: {
@@ -21,4 +21,4 @@ export const SauceDemoUsers = {
     username: 'invalid_user',
     password: 'invalid_password',
   },
-} satisfies Record<string, sauceDemoCredentials>;
+} satisfies Record<string, SauceDemoCredentials>;

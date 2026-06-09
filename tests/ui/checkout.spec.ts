@@ -41,10 +41,7 @@ test.describe("Full checkout flow from logged out state", () => {
     });
 
     await test.step('Complete checkout information', async () => {
-        await page.getByTestId('firstName').fill('Darragh');
-        await page.getByTestId('lastName').fill('Wallnutt');
-        await page.getByTestId('postalCode').fill('12345');
-        await page.getByTestId('continue').click();
+        await checkoutPage.enterCustomerInformation("Test", "User", "9876WE")
     });
 
     await test.step('Validate checkout totals', async () => {
