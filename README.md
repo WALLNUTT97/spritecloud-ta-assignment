@@ -161,6 +161,12 @@ Run only API tests:
 npm run test:api
 ```
 
+Run tests with UI:
+
+```bash
+npx playwright test --ui
+```
+
 ## Reporting
 
 Playwright HTML reporting is enabled. After a test run, the report can be opened with:
